@@ -7,7 +7,7 @@ ShowScraper now contains two services:
 
 The scraper has been moved to a separate repository:
 
-- https://github.com/dissonantP/showscraper
+- https://github.com/dissonantP/showscraper_standalone
 
 ## Repository Layout
 

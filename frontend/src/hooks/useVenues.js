@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import _ from 'underscore';
 import { venuesState, eventsState } from '../state/atoms';
-import { VENUE_LOCATION_OVERRIDES } from '../venueLocationOverrides';
+import { findVenueLocationOverride } from '../venueLocationOverrides';
 import { parseLatLng } from '../utils/mapUtils';
 
 // Shared venue + event location computations.
@@ -23,9 +23,7 @@ export default function useVenues(eventsOverride) {
         const venueName = event.source.name;
         const venueCommonName = event.source.commonName;
 
-        const override = VENUE_LOCATION_OVERRIDES.find(([substrings]) =>
-          substrings.every((substring) => venueCommonName.includes(substring))
-        );
+        const override = findVenueLocationOverride(venueCommonName);
 
         let coords = null;
         if (override) {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
+import React, { useEffect, useRef, useState } from 'react';
+import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import EventMarkers from './EventMarkers';
 import HoverInfoBox from './HoverInfoBox';
@@ -7,17 +7,53 @@ import MissingEventsNotice from './MissingEventsNotice';
 import MissingEventsModal from './MissingEventsModal';
 import NoMapEntries from './NoMapEntries';
 import { BAY_AREA_CENTER, DEFAULT_ZOOM } from '../../utils/mapUtils';
-import useVenues from '../../hooks/useVenues';
+import { getEventKey } from '../../utils/eventLocationUtils';
 
-const MapView = ({ events = {}, onEventClick }) => {
+const FOCUSED_EVENT_ZOOM = 14;
+
+const FocusHandler = ({ focusRequest, onEventHover }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    const event = focusRequest?.event;
+    if (!Number.isFinite(event?.lat) || !Number.isFinite(event?.lng)) return;
+
+    const nextZoom = Math.max(map.getZoom(), FOCUSED_EVENT_ZOOM);
+    map.flyTo([event.lat, event.lng], nextZoom, {
+      animate: true,
+      duration: 0.7,
+    });
+    onEventHover(event);
+  }, [focusRequest, map, onEventHover]);
+
+  return null;
+};
+
+const MapView = ({
+  eventsWithLocation = [],
+  eventsWithoutLocationByDate = {},
+  eventsWithoutLocationCount = 0,
+  focusRequest,
+  onEventClick,
+}) => {
   const [currentZoom, setCurrentZoom] = useState(DEFAULT_ZOOM);
   const [showMissingEventsModal, setShowMissingEventsModal] = useState(false);
   const [hoveredEvent, setHoveredEvent] = useState(null);
-  const {
-    eventsWithLocation,
-    eventsWithoutLocationByDate,
-    eventsWithoutLocationCount,
-  } = useVenues(events);
+  const containerRef = useRef(null);
+  const focusedEvent = focusRequest?.event;
+  const focusedEventKey = focusedEvent ? getEventKey(focusedEvent) : null;
+  const focusedMapEvent = focusedEventKey
+    ? eventsWithLocation.find((event) => getEventKey(event) === focusedEventKey)
+    : null;
+
+  useEffect(() => {
+    if (!focusedMapEvent || !containerRef.current) return;
+
+    containerRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }, [focusedMapEvent, focusRequest]);
 
   const ZoomHandler = () => {
     useMapEvents({
@@ -31,7 +67,7 @@ const MapView = ({ events = {}, onEventClick }) => {
   }
 
   return (
-    <div className='map-container'>
+    <div className='map-container' ref={containerRef}>
       <MapContainer
         center={BAY_AREA_CENTER}
         zoom={DEFAULT_ZOOM}
@@ -42,6 +78,10 @@ const MapView = ({ events = {}, onEventClick }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <ZoomHandler />
+        <FocusHandler
+          focusRequest={focusedMapEvent ? { ...focusRequest, event: focusedMapEvent } : null}
+          onEventHover={setHoveredEvent}
+        />
         <EventMarkers
           events={eventsWithLocation}
           onEventClick={onEventClick}

@@ -9,7 +9,13 @@ import DayGroupTitle from './DayGroupTitle';
 import DayEventsGrid from './DayEventsGrid';
 import RegionBlock from './RegionBlock';
 
-export default function EventListView({ events: eventsByDate, textOnly, hideDayGroupTitle }) {
+export default function EventListView({
+  events: eventsByDate,
+  textOnly,
+  hideDayGroupTitle,
+  onMapFocus,
+  focusableEventKeys,
+}) {
   const dayGroups = Object.entries(eventsByDate).map(([date, dateEvents], dayIdx) => {
     const dayGroupTitle = <DayGroupTitle label={moment(date, "MM-DD").format("M/DD (dddd)")} />;
 
@@ -24,7 +30,14 @@ export default function EventListView({ events: eventsByDate, textOnly, hideDayG
             <RegionBlock key={region} region={region} showTitle={textOnly}>
               { regionEvents.map((dateEvent, idx) => {
                 const ItemComponent = textOnly ? EventListItemText : EventListItemFlyer;
-                return <ItemComponent key={(dayIdx + 1) + idx } event={dateEvent} />;
+                return (
+                  <ItemComponent
+                    key={(dayIdx + 1) + idx}
+                    event={dateEvent}
+                    onMapFocus={textOnly ? onMapFocus : undefined}
+                    focusableEventKeys={textOnly ? focusableEventKeys : undefined}
+                  />
+                );
               }) }
             </RegionBlock>
           ))}

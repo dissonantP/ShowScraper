@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { findVenueLocationOverride } from '../venueLocationOverrides';
+import { resolveEventCoordinates } from '../utils/eventLocationUtils';
 
 // Standalone helper for reuse/testing.
 const listMissingVenues = (venues = [], allEvents = {}) => {
@@ -13,11 +13,7 @@ const listMissingVenues = (venues = [], allEvents = {}) => {
       const venueCommonName = event?.source?.commonName;
       if (!venueName || !venueCommonName) return;
 
-      const override = findVenueLocationOverride(venueCommonName);
-      if (override) return;
-
-      const venue = venueMap[venueName];
-      if (!venue || !venue.latlng) {
+      if (!resolveEventCoordinates(event, venueMap)) {
         missingVenueNames.add(venueCommonName);
       }
     });

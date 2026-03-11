@@ -755,6 +755,30 @@ a .box:hover {
   box-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
 }
 
+.textViewEntry .calendar-button.map-focus-button {
+  background-color: #124e66;
+  border-color: #7dd3fc;
+  color: #d1fae5;
+}
+
+.textViewEntry .calendar-button.map-focus-button:hover {
+  background-color: #16627e;
+  border-color: #ffffff;
+  box-shadow: 0 0 10px rgba(125, 211, 252, 0.35);
+}
+
+.textViewEntry .calendar-button.map-focus-button:disabled {
+  background-color: #12222b;
+  border-color: #36505c;
+  color: #5f7a86;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.textViewEntry .calendar-button.map-focus-button:disabled::after {
+  border-color: #36505c;
+}
+
 /* AI Modal Styles */
 .ai-modal-overlay {
   position: fixed;

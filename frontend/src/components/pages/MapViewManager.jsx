@@ -10,6 +10,8 @@ import EventModal from '../event_list/EventModal';
 import AiIntegrationNotice from '../header/AiIntegrationNotice';
 import OtherEventLists from '../header/OtherEventLists';
 import DateSelector from '../event_list/DateSelector';
+import useVenues from '../../hooks/useVenues';
+import { getEventKey } from '../../utils/eventLocationUtils';
 
 const MapViewManager = () => {
   const allEvents = useRecoilValue(Atoms.eventsState);
@@ -18,6 +20,7 @@ const MapViewManager = () => {
   const setAIModalEvent = useSetRecoilState(Atoms.aiModalEventState);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEventModal, setShowEventModal] = useState(false);
+  const [mapFocusRequest, setMapFocusRequest] = useState(null);
 
   useConsoleCommands(venues, allEvents);
 
@@ -25,11 +28,27 @@ const MapViewManager = () => {
     () => filterEventsList(allEvents || {}, currentDay, 'day', ''),
     [allEvents, currentDay]
   );
+  const {
+    eventsWithLocation,
+    eventsWithoutLocationByDate,
+    eventsWithoutLocationCount,
+  } = useVenues(events);
+  const focusableEventKeys = useMemo(
+    () => new Set(eventsWithLocation.map((event) => getEventKey(event))),
+    [eventsWithLocation]
+  );
 
   const handleEventClick = (event) => {
     setSelectedEvent(event);
     setShowEventModal(true);
     setAIModalEvent(event);
+  };
+
+  const handleMapFocus = (event) => {
+    setMapFocusRequest({
+      event,
+      requestedAt: Date.now(),
+    });
   };
 
   const closeEventModal = () => {
@@ -44,7 +63,10 @@ const MapViewManager = () => {
       <OtherEventLists />
       <br />
       <MapView
-        events={events}
+        eventsWithLocation={eventsWithLocation}
+        eventsWithoutLocationByDate={eventsWithoutLocationByDate}
+        eventsWithoutLocationCount={eventsWithoutLocationCount}
+        focusRequest={mapFocusRequest}
         onEventClick={handleEventClick}
       />
       <DateSelector
@@ -54,7 +76,13 @@ const MapViewManager = () => {
         onPreviousClick={() => setCurrentDay((prev) => DateUtils.prevDate(prev, 'day'))}
         onNextClick={() => setCurrentDay((prev) => DateUtils.nextDate(prev, 'day'))}
       />
-      <EventListView hideDayGroupTitle={true} textOnly={true} events={events}/>
+      <EventListView
+        hideDayGroupTitle={true}
+        textOnly={true}
+        events={events}
+        onMapFocus={handleMapFocus}
+        focusableEventKeys={focusableEventKeys}
+      />
       <EventModal
         isOpen={showEventModal}
         event={selectedEvent}

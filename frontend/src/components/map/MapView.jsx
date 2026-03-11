@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import EventMarkers from './EventMarkers';
@@ -39,12 +39,22 @@ const MapView = ({
   const [currentZoom, setCurrentZoom] = useState(DEFAULT_ZOOM);
   const [showMissingEventsModal, setShowMissingEventsModal] = useState(false);
   const [hoveredEvent, setHoveredEvent] = useState(null);
+  const [activeEvent, setActiveEvent] = useState(null);
   const containerRef = useRef(null);
   const focusedEvent = focusRequest?.event;
   const focusedEventKey = focusedEvent ? getEventKey(focusedEvent) : null;
   const focusedMapEvent = focusedEventKey
     ? eventsWithLocation.find((event) => getEventKey(event) === focusedEventKey)
     : null;
+  const normalizedFocusRequest = useMemo(() => {
+    if (!focusRequest || !focusedMapEvent) return null;
+
+    return {
+      event: focusedMapEvent,
+      requestedAt: focusRequest.requestedAt,
+    };
+  }, [focusedMapEvent, focusRequest?.requestedAt]);
+  const displayEvent = hoveredEvent || activeEvent;
 
   useEffect(() => {
     if (!focusedMapEvent || !containerRef.current) return;
@@ -54,6 +64,24 @@ const MapView = ({
       block: 'start',
     });
   }, [focusedMapEvent, focusRequest]);
+
+  useEffect(() => {
+    if (!normalizedFocusRequest?.event) return;
+
+    setActiveEvent(normalizedFocusRequest.event);
+  }, [normalizedFocusRequest]);
+
+  useEffect(() => {
+    if (!activeEvent) return;
+
+    const activeEventStillVisible = eventsWithLocation.some(
+      (event) => getEventKey(event) === getEventKey(activeEvent)
+    );
+    if (!activeEventStillVisible) {
+      setActiveEvent(null);
+      setHoveredEvent(null);
+    }
+  }, [activeEvent, eventsWithLocation]);
 
   const ZoomHandler = () => {
     useMapEvents({
@@ -79,17 +107,20 @@ const MapView = ({
         />
         <ZoomHandler />
         <FocusHandler
-          focusRequest={focusedMapEvent ? { ...focusRequest, event: focusedMapEvent } : null}
-          onEventHover={setHoveredEvent}
+          focusRequest={normalizedFocusRequest}
+          onEventHover={setActiveEvent}
         />
         <EventMarkers
           events={eventsWithLocation}
-          onEventClick={onEventClick}
-          onEventHover={(event) => setHoveredEvent(event)}
+          onEventClick={(event) => {
+            setActiveEvent(event);
+            onEventClick(event);
+          }}
+          onEventHover={setHoveredEvent}
           currentZoom={currentZoom}
         />
       </MapContainer>
-      <HoverInfoBox event={hoveredEvent} />
+      <HoverInfoBox event={displayEvent} />
       <MissingEventsNotice
         count={eventsWithoutLocationCount}
         onClick={() => setShowMissingEventsModal(true)}

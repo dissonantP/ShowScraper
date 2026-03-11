@@ -7,3 +7,7 @@ export const API_CONFIG = {
   DETAILED_TIMEOUT_MS: 600000, // 10 minutes (increased from 5 minutes)
   ARTIST_PROGRESS_DURATION_MS: 20000,
 };
+
+export const FEATURE_FLAGS = {
+  SHOW_AI_RESEARCH_UI: false,
+};

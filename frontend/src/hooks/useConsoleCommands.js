@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { VENUE_LOCATION_OVERRIDES } from '../venueLocationOverrides';
+import { findVenueLocationOverride } from '../venueLocationOverrides';
 
 // Standalone helper for reuse/testing.
 const listMissingVenues = (venues = [], allEvents = {}) => {
@@ -13,9 +13,7 @@ const listMissingVenues = (venues = [], allEvents = {}) => {
       const venueCommonName = event?.source?.commonName;
       if (!venueName || !venueCommonName) return;
 
-      const override = VENUE_LOCATION_OVERRIDES.find(([substrings]) =>
-        substrings.every((substring) => venueCommonName.includes(substring))
-      );
+      const override = findVenueLocationOverride(venueCommonName);
       if (override) return;
 
       const venue = venueMap[venueName];

@@ -32,7 +32,7 @@ export const REGION_FALLBACKS = [
   [REGIONS.SAN_FRANCISCO, ['san francisco', 'sf', 's.f.', 'thrillhouse']],
   [REGIONS.SACRAMENTO, ['sacramento', 'brooks']],
   [REGIONS.SOUTH_BAY, ['sunnyvale', 'fremont', 'freemont', 'menlo park', 'redwood city', 'saratoga', 'memlo park', 'palo alto', 'san jose']],
-  [REGIONS.NORTH_BAY, ['novato', 'sebastopol', 'mill valley', 'piedmont', 'santa rosa', 'fairfax', 'marin', 'petaluma', 'sonoma', 'napa', 'healdsburg']],
+  [REGIONS.NORTH_BAY, ['novato', 'sebastopol', 'mill valley', 'piedmont', 'santa rosa', 'fairfax', 'marin', 'petaluma', 'sonoma', 'napa', 'healdsburg', 'forest knolls']],
 ];
 
 export const groupByRegion = (events) => {

@@ -56,12 +56,29 @@ const MapViewManager = () => {
     setShowEventModal(false);
   };
 
+  const jumpToTextListings = () => {
+    document.getElementById('map-text-listings')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
+
   return (
     <div className='MapViewManager'>
       <AiIntegrationNotice />
       <br />
       <OtherEventLists />
       <br />
+      <div className='map-jump-button-row'>
+        <button
+          type='button'
+          className='map-jump-button'
+          onClick={jumpToTextListings}
+        >
+          <span>Jump to text listings</span>
+          <span aria-hidden='true' className='map-jump-button-arrow'>↓</span>
+        </button>
+      </div>
       <MapView
         eventsWithLocation={eventsWithLocation}
         eventsWithoutLocationByDate={eventsWithoutLocationByDate}
@@ -77,6 +94,7 @@ const MapViewManager = () => {
         onNextClick={() => setCurrentDay((prev) => DateUtils.nextDate(prev, 'day'))}
       />
       <EventListView
+        id='map-text-listings'
         hideDayGroupTitle={true}
         textOnly={true}
         events={events}

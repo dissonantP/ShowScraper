@@ -1422,6 +1422,40 @@ a .box:hover {
     width: 100%;
 }
 
+.map-jump-button-row {
+    display: flex;
+    justify-content: center;
+    margin: 8px 20px 0;
+}
+
+.map-jump-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid rgba(74, 222, 128, 0.7);
+    border-radius: 999px;
+    background: rgba(12, 123, 147, 0.22);
+    color: #f3fff9;
+    font-size: 0.98rem;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    box-shadow: 0 0 18px rgba(74, 222, 128, 0.16);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+.map-jump-button:hover {
+    transform: translateY(-1px);
+    background: rgba(12, 123, 147, 0.35);
+    box-shadow: 0 0 22px rgba(74, 222, 128, 0.24);
+}
+
+.map-jump-button-arrow {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
 .map-container {
     margin: 20px;
     border-radius: 8px;

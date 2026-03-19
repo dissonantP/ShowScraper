@@ -10,6 +10,7 @@ import DayEventsGrid from './DayEventsGrid';
 import RegionBlock from './RegionBlock';
 
 export default function EventListView({
+  id,
   events: eventsByDate,
   textOnly,
   hideDayGroupTitle,
@@ -47,7 +48,7 @@ export default function EventListView({
   });
 
   return (
-    <div className='Events-list '>
+    <div id={id} className='Events-list '>
       {dayGroups}
     </div>
   );

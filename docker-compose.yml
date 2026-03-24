@@ -1,0 +1,38 @@
+services:
+  llm-server:
+    build:
+      context: ./llm-server
+      dockerfile: Dockerfile
+    container_name: showscraper-llm-server
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: ./llm-server/.env
+        required: false
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8000
+      TZ: America/Los_Angeles
+    volumes:
+      - ./llm-server/logs:/app/logs
+      - ./llm-server/tasks/logs/cache:/app/tasks/logs/cache
+      - ./credentials:/app/credentials:ro
+    networks:
+      - default
+      - traefik
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: traefik
+      traefik.http.routers.showscraper-backend-http.rule: Host(`showscraper-backend.dissonant.info`) || Host(`llm-backend.dissonant.info`)
+      traefik.http.routers.showscraper-backend-http.entrypoints: web
+      traefik.http.routers.showscraper-backend-http.middlewares: redirect-to-https@docker
+      traefik.http.routers.showscraper-backend-https.rule: Host(`showscraper-backend.dissonant.info`) || Host(`llm-backend.dissonant.info`)
+      traefik.http.routers.showscraper-backend-https.entrypoints: websecure
+      traefik.http.routers.showscraper-backend-https.tls: "true"
+      traefik.http.routers.showscraper-backend-https.tls.certresolver: le
+      traefik.http.services.showscraper-backend.loadbalancer.server.port: "8000"
+
+networks:
+  traefik:
+    external: true

@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+.venv/
+venv/
+logs/
+tasks/logs/
+tests/
+agentops.log
+README.md
+REFACTORING.md
+plans/

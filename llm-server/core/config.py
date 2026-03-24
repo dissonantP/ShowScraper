@@ -49,8 +49,31 @@ class Config:
     CACHE_DIR = BASE_DIR / "tasks" / "logs" / "cache"
     LOGS_DIR = BASE_DIR / "logs"
     
+    # Manual show storage
+    GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", "show-scraper-data")
+    MANUAL_SHOWS_OBJECT = os.getenv("MANUAL_SHOWS_OBJECT", "ManuallyAdded.json")
+    MANUAL_SHOWS_LOCAL_FILE = os.getenv("MANUAL_SHOWS_LOCAL_FILE", "")
+    MANUAL_SHOWS_API_TOKEN = os.getenv("MANUAL_SHOWS_API_TOKEN", "")
+    MANUAL_SHOWS_UI_USERNAME = os.getenv("MANUAL_SHOWS_UI_USERNAME", "")
+    MANUAL_SHOWS_UI_PASSWORD = os.getenv("MANUAL_SHOWS_UI_PASSWORD", "")
+    GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "")
+    
     @classmethod
     def ensure_dirs(cls):
         """Ensure required directories exist."""
         cls.CACHE_DIR.mkdir(parents=True, exist_ok=True)
         cls.LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
+    @classmethod
+    def llm_available(cls) -> bool:
+        """Whether OpenAI-backed research endpoints have enough config to run."""
+        return bool(cls.OPENAI_API_KEY)
+
+    @classmethod
+    def manual_shows_storage_backend(cls) -> str:
+        """Return the configured manual show storage backend."""
+        if cls.MANUAL_SHOWS_LOCAL_FILE:
+            return "local"
+        if cls.GCS_BUCKET_NAME:
+            return "gcs"
+        return "none"

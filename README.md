@@ -30,13 +30,21 @@ To build and deploy the frontend:
 2. `cp .env.example .env`
 3. Add required API keys to `.env`:
    - `OPENAI_API_KEY=...`
-   - `SERPAPI_API_KEY=...`
+   - `SERPER_API_KEY=...`
 4. `uv venv venv`
 5. `source venv/bin/activate`
 6. `uv pip install -r requirements.txt`
 7. `python main.py`
 
 The server runs on `http://localhost:8000` by default.
+
+## LLM Server with Docker
+
+1. `cp llm-server/.env.example llm-server/.env`
+2. Add the required API keys to `llm-server/.env`
+3. `docker compose up --build llm-server`
+
+The container exposes the API on `http://localhost:8000` and persists server logs/cache under `llm-server/logs/` and `llm-server/tasks/logs/cache/`.
 
 ## Notes
 

@@ -3,6 +3,7 @@ import json
 from fastapi import HTTPException, Request
 from sse_starlette.sse import EventSourceResponse
 
+from core.config import Config
 from core.logging import log_request
 from core.validation import validate_event_data, validate_mode
 from tasks.quick_handler import quick_research_handler
@@ -22,6 +23,12 @@ async def handle_concert_research(
     no_cache: bool = False
 ) -> EventSourceResponse:
     """Handle concert research request."""
+    if not Config.llm_available():
+        raise HTTPException(
+            status_code=503,
+            detail="LLM endpoints are disabled because OPENAI_API_KEY is not configured"
+        )
+
     # Validate and normalize input
     event_data = validate_event_data(date, title, venue, url)
     mode = validate_mode(mode)

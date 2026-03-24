@@ -25,6 +25,7 @@
 - Location: `frontend/react-app/`; uses Bulma, Leaflet, Moment, React Markdown (GitHub dark CSS).
 - Data flow: `src/utils/GcsDataLoader.js` fetches `sources.json` + per-venue `{venue}.json` from GCS; groups events by `MM-DD` (year omitted to avoid Dec/Jan issues).
 - Views: list (image/text), text-only, map, venues list, about. Root `src/App.jsx`; route prop controls view.
+- Additional view: `Shows by Venue` provides venue-name search across all loaded dates and links users to the Venues page for the directory.
 - AI research UI:
   - Triggered from `EventListItem.jsx` & `MapViewManager.jsx`; modal `AIResearchModal.jsx`.
   - Endpoint config in `src/config.js`: prod `https://llm-backend.dissonant.info/tasks/concert-research`, dev `http://localhost:8000/tasks/concert-research`.
@@ -42,4 +43,3 @@
 - SSE not working: verify backend running on `localhost:8000`, CORS origins, and no adblock; check rate limits (429).
 - Missing AI results: clear `localStorage` entries for the event; use “Re-fetch” button.
 - Year off in dates: grouping intentionally ignores year—don’t “fix” without redesign.
-

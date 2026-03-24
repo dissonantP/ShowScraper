@@ -38,3 +38,21 @@ export const filterEventsList = (allEvents, currentDay, mode, search) => {
   }
   return results
 }
+
+export const filterEventsByVenueAcrossAllDays = (allEvents, search) => {
+  if (!search || search == "") {
+    return {};
+  }
+
+  return Object.entries(allEvents || {}).reduce((results, [date, events]) => {
+    const matchingEvents = events.filter((event) =>
+      event.source.commonName.toLowerCase().includes(search.toLowerCase())
+    );
+
+    if (matchingEvents.length > 0) {
+      results[date] = matchingEvents;
+    }
+
+    return results;
+  }, {});
+}

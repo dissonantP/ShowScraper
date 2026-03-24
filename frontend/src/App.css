@@ -538,6 +538,41 @@ a .box:hover {
     color: #777;
 }
 
+.shows-by-venue-intro {
+    max-width: 900px;
+    margin: 0 auto 12px auto;
+    padding: 6px 12px 0 12px;
+    text-align: center;
+}
+
+.shows-by-venue-title {
+    margin: 0 0 8px 0;
+    color: #4ade80;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(74, 222, 128, 0.25);
+}
+
+.shows-by-venue-copy {
+    margin: 0;
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+.shows-by-venue-empty {
+    max-width: 720px;
+    margin: 20px auto 0 auto;
+    padding: 16px 18px;
+    text-align: center;
+    color: #d1d5db;
+    background-color: #0d1117;
+    border: 2px solid #1a4a5c;
+    border-left: 4px solid #0C7B93;
+    border-radius: 4px;
+}
+
 /* EVENT LIST ITEM -- TEXT ONLY */
 .textViewEntry {
     outline: 2px solid #1a4a5c;

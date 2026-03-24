@@ -23,6 +23,7 @@ const ShowsByVenueView = () => {
         dateEvents.map((event, idx) => ({
           id: `${date}-${idx}-${event.url}`,
           date,
+          venue: event.source.commonName,
           title: event.title,
           url: event.url,
         }))
@@ -59,6 +60,7 @@ const ShowsByVenueView = () => {
           <div className='shows-by-venue-table'>
             <div className='shows-by-venue-header'>
               <div className='shows-by-venue-header-cell'>Date</div>
+              <div className='shows-by-venue-header-cell'>Venue</div>
               <div className='shows-by-venue-header-cell'>Title</div>
             </div>
 
@@ -67,6 +69,7 @@ const ShowsByVenueView = () => {
                 <div className='shows-by-venue-date'>
                   {moment(row.date, 'MM-DD').format('M/DD (dddd)')}
                 </div>
+                <div className='shows-by-venue-venue'>{row.venue}</div>
                 <a
                   className='shows-by-venue-link'
                   href={row.url}

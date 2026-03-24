@@ -594,7 +594,7 @@ a .box:hover {
 .shows-by-venue-header,
 .shows-by-venue-row {
     display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
+    grid-template-columns: 180px 220px minmax(0, 1fr);
     gap: 0;
 }
 
@@ -626,6 +626,7 @@ a .box:hover {
 }
 
 .shows-by-venue-date,
+.shows-by-venue-venue,
 .shows-by-venue-link {
     padding: 10px 14px;
 }
@@ -635,6 +636,12 @@ a .box:hover {
     font-size: 0.92rem;
     font-weight: 700;
     white-space: nowrap;
+}
+
+.shows-by-venue-venue {
+    color: #c7ffe9;
+    font-size: 0.92rem;
+    font-weight: 700;
 }
 
 .shows-by-venue-link,
@@ -653,10 +660,11 @@ a .box:hover {
 @media (max-width: 720px) {
     .shows-by-venue-header,
     .shows-by-venue-row {
-        grid-template-columns: 124px minmax(0, 1fr);
+        grid-template-columns: 118px 140px minmax(0, 1fr);
     }
 
     .shows-by-venue-date,
+    .shows-by-venue-venue,
     .shows-by-venue-link,
     .shows-by-venue-header-cell {
         padding: 9px 10px;

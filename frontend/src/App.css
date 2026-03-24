@@ -561,6 +561,11 @@ a .box:hover {
     line-height: 1.5;
 }
 
+.shows-by-venue-directory-link {
+    display: inline-block;
+    margin-top: 10px;
+}
+
 .shows-by-venue-empty {
     max-width: 720px;
     margin: 20px auto 0 auto;
@@ -571,6 +576,91 @@ a .box:hover {
     border: 2px solid #1a4a5c;
     border-left: 4px solid #0C7B93;
     border-radius: 4px;
+}
+
+.shows-by-venue-table-wrap {
+    max-width: 980px;
+    margin: 18px auto 0 auto;
+    padding: 0 12px 24px 12px;
+}
+
+.shows-by-venue-table {
+    border: 2px solid #1a4a5c;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #0d1117;
+}
+
+.shows-by-venue-header,
+.shows-by-venue-row {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 0;
+}
+
+.shows-by-venue-header {
+    background-color: #081018;
+    border-bottom: 2px solid #1a4a5c;
+}
+
+.shows-by-venue-header-cell {
+    padding: 10px 14px;
+    color: #4ade80;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.shows-by-venue-row {
+    border-bottom: 1px solid rgba(26, 74, 92, 0.9);
+    transition: background-color 0.12s ease;
+}
+
+.shows-by-venue-row:last-child {
+    border-bottom: none;
+}
+
+.shows-by-venue-row:hover {
+    background-color: #12202a;
+}
+
+.shows-by-venue-date,
+.shows-by-venue-link {
+    padding: 10px 14px;
+}
+
+.shows-by-venue-date {
+    color: #d1d5db;
+    font-size: 0.92rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.shows-by-venue-link,
+.shows-by-venue-link:visited {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.shows-by-venue-link:hover {
+    color: #4ade80;
+    text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+    .shows-by-venue-header,
+    .shows-by-venue-row {
+        grid-template-columns: 124px minmax(0, 1fr);
+    }
+
+    .shows-by-venue-date,
+    .shows-by-venue-link,
+    .shows-by-venue-header-cell {
+        padding: 9px 10px;
+    }
 }
 
 /* EVENT LIST ITEM -- TEXT ONLY */

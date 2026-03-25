@@ -584,6 +584,99 @@ a .box:hover {
     padding: 0 12px 24px 12px;
 }
 
+.calendar-view {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 12px 24px 12px;
+}
+
+.calendar-view-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0 14px 0;
+    flex-wrap: wrap;
+}
+
+.calendar-month-button {
+    border: none;
+}
+
+.calendar-month-current {
+    min-width: 220px;
+    text-align: center;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0 auto 18px auto;
+}
+
+.calendar-grid-label {
+    text-align: center;
+    color: #4ade80;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 0;
+}
+
+.calendar-day {
+    min-height: 84px;
+    background-color: #0d1117;
+    border: 2px solid #1a4a5c;
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    transition: all 0.12s ease;
+    cursor: pointer;
+}
+
+.calendar-day:hover {
+    border-color: #4ade80;
+    background-color: #12202a;
+}
+
+.calendar-day-outside {
+    opacity: 0.45;
+}
+
+.calendar-day-selected {
+    border-color: #4ade80;
+    box-shadow: 0 0 14px rgba(74, 222, 128, 0.22);
+}
+
+.calendar-day-has-events .calendar-day-number {
+    color: #4ade80;
+}
+
+.calendar-day-number {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.calendar-day-count {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #c7ffe9;
+}
+
+.calendar-selected-day {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin: 8px 0 10px 0;
+}
+
 .shows-by-venue-table {
     border: 2px solid #1a4a5c;
     border-radius: 6px;
@@ -658,6 +751,19 @@ a .box:hover {
 }
 
 @media (max-width: 720px) {
+    .calendar-grid {
+        gap: 6px;
+    }
+
+    .calendar-day {
+        min-height: 72px;
+        padding: 8px 6px;
+    }
+
+    .calendar-selected-day {
+        font-size: 1.1rem;
+    }
+
     .shows-by-venue-header,
     .shows-by-venue-row {
         grid-template-columns: 118px 140px minmax(0, 1fr);

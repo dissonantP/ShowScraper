@@ -9,6 +9,7 @@ import MapViewManager from './components/pages/MapViewManager';
 import AboutView from './components/pages/AboutView';
 import VenuesList from './components/event_list/VenuesList';
 import ShowsByVenueView from './components/pages/ShowsByVenueView';
+import CalendarViewManager from './components/pages/CalendarViewManager';
 import GcsDataLoader from "./utils/GcsDataLoader"
 import AIResearchModal from './components/ai_research/AIResearchModal';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -42,6 +43,9 @@ function App({ route }) {
   }
   if (route === "ShowsByVenueView") {
     currentView = hasEvents ? <ShowsByVenueView /> : loadingMessage;
+  }
+  if (route === "CalendarView") {
+    currentView = hasEvents ? <CalendarViewManager /> : loadingMessage;
   }
   if (route === "MapView") { currentView = <MapViewManager />; }
   if (route === "VenuesListView") { currentView = <VenuesList />; }

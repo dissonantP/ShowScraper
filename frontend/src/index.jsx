@@ -20,6 +20,7 @@ root.render(
           <Route path="/TextAndImagesView" element={<App route='TextAndImagesView' />} />
           <Route path="/TextView" element={<App route='TextView' />} />
           <Route path="/ShowsByVenueView" element={<App route='ShowsByVenueView' />} />
+          <Route path="/CalendarView" element={<App route='CalendarView' />} />
           <Route path="/MapView" element={<App route='MapView' />} />
           <Route path="/VenuesListView" element={<App route='VenuesListView' />} />
           <Route path="/About" element={<App route='About' />} />

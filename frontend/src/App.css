@@ -687,7 +687,7 @@ a .box:hover {
 .shows-by-venue-header,
 .shows-by-venue-row {
     display: grid;
-    grid-template-columns: 180px 220px minmax(0, 1fr);
+    grid-template-columns: 180px minmax(0, 1fr) 112px 220px;
     gap: 0;
 }
 
@@ -719,6 +719,7 @@ a .box:hover {
 }
 
 .shows-by-venue-date,
+.shows-by-venue-links,
 .shows-by-venue-venue,
 .shows-by-venue-link {
     padding: 10px 14px;
@@ -735,6 +736,17 @@ a .box:hover {
     color: #c7ffe9;
     font-size: 0.92rem;
     font-weight: 700;
+}
+
+.shows-by-venue-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.shows-by-venue-links .calendar-button {
+    width: 30px;
+    height: 30px;
 }
 
 .shows-by-venue-link,
@@ -766,10 +778,11 @@ a .box:hover {
 
     .shows-by-venue-header,
     .shows-by-venue-row {
-        grid-template-columns: 118px 140px minmax(0, 1fr);
+        grid-template-columns: 110px minmax(0, 1fr) 84px 128px;
     }
 
     .shows-by-venue-date,
+    .shows-by-venue-links,
     .shows-by-venue-venue,
     .shows-by-venue-link,
     .shows-by-venue-header-cell {

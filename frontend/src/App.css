@@ -611,6 +611,8 @@ a .box:hover {
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
+    max-width: 336px;
+    width: 100%;
     gap: 4px;
     margin: 0 auto 14px auto;
 }

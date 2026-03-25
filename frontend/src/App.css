@@ -626,12 +626,12 @@ a .box:hover {
 }
 
 .calendar-day {
-    min-height: 42px;
+    aspect-ratio: 1 / 1;
     background-color: #0d1117;
     border: 2px solid #1a4a5c;
     border-radius: 4px;
     color: #ffffff;
-    padding: 5px 6px;
+    padding: 4px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -768,8 +768,7 @@ a .box:hover {
     }
 
     .calendar-day {
-        min-height: 38px;
-        padding: 4px 5px;
+        padding: 3px;
     }
 
     .calendar-selected-day {

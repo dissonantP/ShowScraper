@@ -23,6 +23,8 @@ export default function useVenues(eventsOverride) {
 
         if (coords) {
           withLoc.push({ ...event, lat: coords[0], lng: coords[1] });
+        } else if (venueName === 'Indybay') {
+          return;
         } else {
           (withoutLocByDate[date] = withoutLocByDate[date] || []).push(event);
         }

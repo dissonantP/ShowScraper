@@ -19,6 +19,7 @@ export default function useVenues(eventsOverride) {
 
     Object.entries(events || {}).forEach(([date, dateEvents = []]) => {
       dateEvents.forEach((event) => {
+        const venueName = event?.source?.name;
         const coords = resolveEventCoordinates(event, venuesByName);
 
         if (coords) {

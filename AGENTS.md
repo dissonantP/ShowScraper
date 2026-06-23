@@ -38,6 +38,7 @@
   - Workflow: request quick summary (`quick` SSE); auto-start detailed unless cached. Shows per-artist progress bars; renders markdown.
   - Caching: `localStorage` per event+mode; “Re-fetch” clears caches. Sample mode via `API_CONFIG.USE_SAMPLE_DATA=true`.
 - Calendar links: Google/ICS generated in `EventListItem.jsx` & `EventModal.jsx`; missing images fallback to `MissingImage.png`.
+- Venue coordinate overrides: canonical tuples are in `frontend/src/venueLocationOverrides.json`; validate or append proposal batches with `npm run venue-overrides:update -- --input <file> [--dry-run]` from `frontend/`.
 - Dev start: `npm install && npm start` in `frontend/react-app` (talks to local LLM server).
 
 ## What to do as an agent

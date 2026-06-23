@@ -24,6 +24,7 @@
   - Manual shows storage: default GCS bucket `show-scraper-data`, object `ManuallyAdded.json`; optional `MANUAL_SHOWS_LOCAL_FILE` for local testing; optional `MANUAL_SHOWS_API_TOKEN` for write auth.
   - Manual shows UI auth: `MANUAL_SHOWS_UI_USERNAME` and `MANUAL_SHOWS_UI_PASSWORD`
 - Public reverse-proxy hostnames for the backend should preserve `llm-backend.dissonant.info` compatibility while also serving `showscraper-backend.dissonant.info` when Traefik is in use.
+- The public backend routes are currently gated by the shared `authelia@docker` middleware in Traefik.
 - If `OPENAI_API_KEY` is absent, the server should still boot and return `503` for LLM endpoints rather than failing at startup.
 - Run locally: `python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt && python main.py` (serves `localhost:8000`).
 

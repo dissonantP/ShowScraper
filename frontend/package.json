@@ -24,6 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:venue-overrides": "node --test scripts/updateVenueLocationOverrides.test.mjs && react-scripts test --watchAll=false --runInBand venueLocationOverrides.test.js",
+    "venue-overrides:update": "node scripts/updateVenueLocationOverrides.mjs",
     "eject": "react-scripts eject",
     "predeploy": "npm run build && echo 'bayareashows.org' > build/CNAME",
     "deploy": "gh-pages -d build"

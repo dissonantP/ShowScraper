@@ -10,6 +10,15 @@ if ! command -v yarn >/dev/null 2>&1; then
   done
 fi
 
-(
-  cd ./frontend && NODE_ENV=production yarn deploy
-)
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+build_dir="$(mktemp -d)"
+
+cleanup() {
+  rm -rf -- "$build_dir"
+}
+trap cleanup EXIT
+
+cd "$repo_root/frontend"
+NODE_ENV=production BUILD_PATH="$build_dir" yarn build
+echo 'bayareashows.org' > "$build_dir/CNAME"
+yarn gh-pages -d "$build_dir"

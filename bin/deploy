@@ -1,5 +1,24 @@
 #!/bin/bash
+set -euo pipefail
 
-(
-  cd ./frontend && NODE_ENV=production yarn deploy
-)
+if ! command -v yarn >/dev/null 2>&1; then
+  for node_bin in /.sprite/languages/node/nvm/versions/node/*/bin; do
+    if [ -x "$node_bin/yarn" ]; then
+      export PATH="$node_bin:$PATH"
+      break
+    fi
+  done
+fi
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+build_dir="$(mktemp -d)"
+
+cleanup() {
+  rm -rf -- "$build_dir"
+}
+trap cleanup EXIT
+
+cd "$repo_root/frontend"
+NODE_ENV=production BUILD_PATH="$build_dir" yarn build
+echo 'bayareashows.org' > "$build_dir/CNAME"
+yarn gh-pages -d "$build_dir"

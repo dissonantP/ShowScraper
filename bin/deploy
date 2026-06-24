@@ -1,4 +1,14 @@
 #!/bin/bash
+set -euo pipefail
+
+if ! command -v yarn >/dev/null 2>&1; then
+  for node_bin in /.sprite/languages/node/nvm/versions/node/*/bin; do
+    if [ -x "$node_bin/yarn" ]; then
+      export PATH="$node_bin:$PATH"
+      break
+    fi
+  done
+fi
 
 (
   cd ./frontend && NODE_ENV=production yarn deploy

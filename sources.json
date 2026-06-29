@@ -430,6 +430,16 @@
       "img": "https://www.mercurynews.com/wp-content/uploads/2020/05/SJM-L-CLOSED-0526-02.jpg?w=1024"
     },
     {
+      "name": "SiestaValleyBowl",
+      "commonName": "Siesta Valley Bowl",
+      "website": "https://www.siestavalleybowl.com/",
+      "region": "East Bay",
+      "mapLink": "",
+      "latlng": "37.87041102854139, -122.2037083439263",
+      "desc": "Outdoor amphitheater hosting live music in the hills of Orinda.",
+      "img": "https://cdn.prod.website-files.com/699bda191c273ecfe3f38779/69a6471f2af800a63449d862_stage-hero-web.jpg"
+    },
+    {
       "name": "TheList",
       "commonName": "The List",
       "website": "http://www.foopee.com/punk/the-list/",
